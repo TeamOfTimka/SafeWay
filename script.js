@@ -60,7 +60,7 @@ function init() {
         referencePoints = []
         viaIndexes = []
         console.log(myPlacemark.properties["_data"]["iconCaption"].split(" ")[2], myPlacemark.properties["_data"]["iconCaption"].split(" ")[4])
-        rayons = ["Макаренко", "Ольминского", "Жукова", "Конева", "Олимпийский", "Солнечный", "Королёва", "Лог", "Восточный", "Северный", "Олимпийская"]
+        rayons = ["Макаренко", "Ольминского", "Жукова", "Конева", "Олимпийский", "Солнечный", "Королёва", "Лог", "Восточный", "Степной", "Олимпийская"]
         if (rayons.includes(myPlacemark.properties["_data"]["iconCaption"].split(" ")[2])) {
             switch (myPlacemark.properties["_data"]["iconCaption"].split(" ")[2]) {
                 case "Конева":
@@ -98,7 +98,7 @@ function init() {
                     referencePoints = [coords, pointVostochny, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
                     viaIndexes = [1, 2, 3, 4];
                     break;
-                case "Северный":
+                case "Степной":
                     referencePoints = [coords, pointSeverny, pointVostochny, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
                     viaIndexes = [1, 2, 3, 4, 5];
                     break;
@@ -149,7 +149,7 @@ function init() {
                         referencePoints = [coords, pointVostochny, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
                         viaIndexes = [1, 2, 3, 4];
                         break;
-                    case "Северный":
+                    case "Степной":
                         referencePoints = [coords, pointSeverny, pointVostochny, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
                         viaIndexes = [1, 2, 3, 4, 5];
                         break;
@@ -196,7 +196,7 @@ function init() {
                             referencePoints = [coords, pointVostochny, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
                             viaIndexes = [1, 2, 3, 4];
                             break;
-                        case "Северный":
+                        case "Степной":
                             referencePoints = [coords, pointSeverny, pointVostochny, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
                             viaIndexes = [1, 2, 3, 4, 5];
                             break;
