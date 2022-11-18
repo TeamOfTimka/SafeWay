@@ -34,10 +34,10 @@ function init() {
         getAddress(coords);
     });
 
-    // Создание метки.
+    // РЎРѕР·РґР°РЅРёРµ РјРµС‚РєРё.
     function createPlacemark(coords) {
         return new ymaps.Placemark(coords, {
-            iconCaption: 'поиск...'
+            iconCaption: 'РїРѕРёСЃРє...'
         }, {
             preset: 'islands#violetDotIconWithCaption',
             draggable: false
@@ -45,7 +45,7 @@ function init() {
     }
 
     function getAddress(coords) {
-        myPlacemark.properties.set('iconCaption', 'поиск...');
+        myPlacemark.properties.set('iconCaption', 'РїРѕРёСЃРє...');
         ymaps.geocode(coords).then(function (res) {
             var firstGeoObject = res.geoObjects.get(0);
 
@@ -60,157 +60,157 @@ function init() {
         referencePoints = []
         viaIndexes = []
         console.log(myPlacemark.properties["_data"]["iconCaption"].split(" ")[2], myPlacemark.properties["_data"]["iconCaption"].split(" ")[4])
-        rayons = ["Макаренко", "Ольминского", "Жукова", "Конева", "Олимпийский", "Солнечный", "Королёва", "Лог", "Восточный", "Степной", "Олимпийская"]
+        rayons = ["РњР°РєР°СЂРµРЅРєРѕ", "РћР»СЊРјРёРЅСЃРєРѕРіРѕ", "Р–СѓРєРѕРІР°", "РљРѕРЅРµРІР°", "РћР»РёРјРїРёР№СЃРєРёР№", "РЎРѕР»РЅРµС‡РЅС‹Р№", "РљРѕСЂРѕР»С‘РІР°", "Р›РѕРі", "Р’РѕСЃС‚РѕС‡РЅС‹Р№", "РЎС‚РµРїРЅРѕР№", "РћР»РёРјРїРёР№СЃРєР°СЏ"]
         if (rayons.includes(myPlacemark.properties["_data"]["iconCaption"].split(" ")[2])) {
             switch (myPlacemark.properties["_data"]["iconCaption"].split(" ")[2]) {
-                case "Конева":
+                case "РљРѕРЅРµРІР°":
                     referencePoints = [coords, point];
                     break;
-                case 'Жукова':
+                case 'Р–СѓРєРѕРІР°':
                     referencePoints = [coords, pointZhukova, point];
                     viaIndexes = [1];
                     break;
-                case "Ольминского":
+                case "РћР»СЊРјРёРЅСЃРєРѕРіРѕ":
                     referencePoints = [coords, pointOlminskogo, point];
                     viaIndexes = [1];
                     break;     
-                case "Макаренко":
+                case "РњР°РєР°СЂРµРЅРєРѕ":
                     referencePoints = [coords, pointMakarenko, pointZhukova, point];
                     viaIndexes = [1, 2];
                     break;
-                case "Олимпийский":
+                case "РћР»РёРјРїРёР№СЃРєРёР№":
                     referencePoints = [coords, pointOlimpiyskiy, pointZhukova, point];
                     viaIndexes = [1, 2];
                     break;
-                case "Олимпийская":
+                case "РћР»РёРјРїРёР№СЃРєР°СЏ":
                     referencePoints = [coords, pointOlimpiyskiy, pointZhukova, point];
                     viaIndexes = [1, 2];
                     break;    
-                case "Королёва":
+                case "РљРѕСЂРѕР»С‘РІР°":
                     referencePoints = [coords, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
                     viaIndexes = [1, 2, 3];
                     break;
-                case "Солнечный":
+                case "РЎРѕР»РЅРµС‡РЅС‹Р№":
                     referencePoints = [coords, pointSolnechniy, pointZhukova, point];
                     viaIndexes = [1, 2];
                     break;
-                case "Восточный":
+                case "Р’РѕСЃС‚РѕС‡РЅС‹Р№":
                     referencePoints = [coords, pointVostochny, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
                     viaIndexes = [1, 2, 3, 4];
                     break;
-                case "Степной":
+                case "РЎС‚РµРїРЅРѕР№":
                     referencePoints = [coords, pointSeverny, pointVostochny, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
                     viaIndexes = [1, 2, 3, 4, 5];
                     break;
-                case "Лог":
+                case "Р›РѕРі":
                     referencePoints = [coords, pointLog, pointSolnechniy, pointZhukova, point];
                     viaIndexes = [1, 2, 3];
                     break;
-                case "парк":
+                case "РїР°СЂРє":
                     referencePoints = [coords, pointLog, pointSolnechniy, pointZhukova, point];
                     viaIndexes = [1, 2, 3];
                     break;    
                 default:
-                    alert("Извините, возникла непредвиденная ошибка: нам не удалось построить безопасный маршрут из выбранной Вами точки; для корректной работы приложения попробуйте выбрать соседние дома!");
+                    alert("РР·РІРёРЅРёС‚Рµ, РІРѕР·РЅРёРєР»Р° РЅРµРїСЂРµРґРІРёРґРµРЅРЅР°СЏ РѕС€РёР±РєР°: РЅР°Рј РЅРµ СѓРґР°Р»РѕСЃСЊ РїРѕСЃС‚СЂРѕРёС‚СЊ Р±РµР·РѕРїР°СЃРЅС‹Р№ РјР°СЂС€СЂСѓС‚ РёР· РІС‹Р±СЂР°РЅРЅРѕР№ Р’Р°РјРё С‚РѕС‡РєРё; РґР»СЏ РєРѕСЂСЂРµРєС‚РЅРѕР№ СЂР°Р±РѕС‚С‹ РїСЂРёР»РѕР¶РµРЅРёСЏ РїРѕРїСЂРѕР±СѓР№С‚Рµ РІС‹Р±СЂР°С‚СЊ СЃРѕСЃРµРґРЅРёРµ РґРѕРјР°!");
                     break;                                                    
             }
         }
         else {
             if (rayons.includes(myPlacemark.properties["_data"]["iconCaption"].split(" ")[3])) {
                 switch (myPlacemark.properties["_data"]["iconCaption"].split(" ")[3]) {
-                    case "Конева":
+                    case "РљРѕРЅРµРІР°":
                         referencePoints = [coords, point];
                         break;
-                    case "Жукова":
+                    case "Р–СѓРєРѕРІР°":
                         referencePoints = [coords, pointZhukova, point];
                         viaIndexes = [1];
                         break;
-                    case "Ольминского":
+                    case "РћР»СЊРјРёРЅСЃРєРѕРіРѕ":
                         referencePoints = [coords, pointOlminskogo, point];
                         viaIndexes = [1];
                         break;     
-                    case "Макаренко":
+                    case "РњР°РєР°СЂРµРЅРєРѕ":
                         referencePoints = [coords, pointMakarenko, pointZhukova, point];
                         viaIndexes = [1, 2];
                         break;
-                    case "Олимпийский":
+                    case "РћР»РёРјРїРёР№СЃРєРёР№":
                         referencePoints = [coords, pointOlimpiyskiy, pointZhukova, point];
                         viaIndexes = [1, 2];
                         break;
-                    case "Королёва":
+                    case "РљРѕСЂРѕР»С‘РІР°":
                         referencePoints = [coords, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
                         viaIndexes = [1, 2, 3];
                         break;
-                    case "Солнечный":
+                    case "РЎРѕР»РЅРµС‡РЅС‹Р№":
                         referencePoints = [coords, pointSolnechniy, pointZhukova, point];
                         viaIndexes = [1, 2];
                         break;
-                    case "Восточный":
+                    case "Р’РѕСЃС‚РѕС‡РЅС‹Р№":
                         referencePoints = [coords, pointVostochny, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
                         viaIndexes = [1, 2, 3, 4];
                         break;
-                    case "Степной":
+                    case "РЎС‚РµРїРЅРѕР№":
                         referencePoints = [coords, pointSeverny, pointVostochny, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
                         viaIndexes = [1, 2, 3, 4, 5];
                         break;
-                    case "Лог":
+                    case "Р›РѕРі":
                         referencePoints = [coords, pointLog, pointSolnechniy, pointZhukova, point];
                         viaIndexes = [1, 2, 3];
                         break;
                     default:
-                        alert("Извините, возникла непредвиденная ошибка: нам не удалось построить безопасный маршрут из выбранной Вами точки; для корректной работы приложения попробуйте выбрать соседние дома!");
+                        alert("РР·РІРёРЅРёС‚Рµ, РІРѕР·РЅРёРєР»Р° РЅРµРїСЂРµРґРІРёРґРµРЅРЅР°СЏ РѕС€РёР±РєР°: РЅР°Рј РЅРµ СѓРґР°Р»РѕСЃСЊ РїРѕСЃС‚СЂРѕРёС‚СЊ Р±РµР·РѕРїР°СЃРЅС‹Р№ РјР°СЂС€СЂСѓС‚ РёР· РІС‹Р±СЂР°РЅРЅРѕР№ Р’Р°РјРё С‚РѕС‡РєРё; РґР»СЏ РєРѕСЂСЂРµРєС‚РЅРѕР№ СЂР°Р±РѕС‚С‹ РїСЂРёР»РѕР¶РµРЅРёСЏ РїРѕРїСЂРѕР±СѓР№С‚Рµ РІС‹Р±СЂР°С‚СЊ СЃРѕСЃРµРґРЅРёРµ РґРѕРјР°!");
                         break;                                                    
                 }
             }
             else {
                 if (rayons.includes(myPlacemark.properties["_data"]["iconCaption"].split(" ")[4])) {
                     switch (myPlacemark.properties["_data"]["iconCaption"].split(" ")[4]) {
-                        case "Конева":
+                        case "РљРѕРЅРµРІР°":
                             referencePoints = [coords, point];
                             break;
-                        case "Жукова":
+                        case "Р–СѓРєРѕРІР°":
                             referencePoints = [coords, pointZhukova, point];
                             viaIndexes = [1];
                             break;
-                        case "Ольминского":
+                        case "РћР»СЊРјРёРЅСЃРєРѕРіРѕ":
                             referencePoints = [coords, pointOlminskogo, point];
                             viaIndexes = [1];
                             break;     
-                        case "Макаренко":
+                        case "РњР°РєР°СЂРµРЅРєРѕ":
                             referencePoints = [coords, pointMakarenko, pointZhukova, point];
                             viaIndexes = [1, 2];
                             break;
-                        case "Олимпийский":
+                        case "РћР»РёРјРїРёР№СЃРєРёР№":
                             referencePoints = [coords, pointOlimpiyskiy, pointZhukova, point];
                             viaIndexes = [1, 2];
                             break;
-                        case "Королёва":
+                        case "РљРѕСЂРѕР»С‘РІР°":
                             referencePoints = [coords, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
                             viaIndexes = [1, 2, 3];
                             break;
-                        case "Солнечный":
+                        case "РЎРѕР»РЅРµС‡РЅС‹Р№":
                             referencePoints = [coords, pointSolnechniy, pointZhukova, point];
                             viaIndexes = [1, 2];
                             break;
-                        case "Восточный":
+                        case "Р’РѕСЃС‚РѕС‡РЅС‹Р№":
                             referencePoints = [coords, pointVostochny, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
                             viaIndexes = [1, 2, 3, 4];
                             break;
-                        case "Степной":
+                        case "РЎС‚РµРїРЅРѕР№":
                             referencePoints = [coords, pointSeverny, pointVostochny, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
                             viaIndexes = [1, 2, 3, 4, 5];
                             break;
-                        case "Лог":
+                        case "Р›РѕРі":
                             referencePoints = [coords, pointLog, pointSolnechniy, pointZhukova, point];
                             viaIndexes = [1, 2, 3];
                             break;
                         default:
-					alert("Извините, возникла непредвиденная ошибка: нам не удалось построить безопасный маршрут из выбранной Вами точки; для корректной работы приложения попробуйте выбрать соседние дома!");
+					alert("РР·РІРёРЅРёС‚Рµ, РІРѕР·РЅРёРєР»Р° РЅРµРїСЂРµРґРІРёРґРµРЅРЅР°СЏ РѕС€РёР±РєР°: РЅР°Рј РЅРµ СѓРґР°Р»РѕСЃСЊ РїРѕСЃС‚СЂРѕРёС‚СЊ Р±РµР·РѕРїР°СЃРЅС‹Р№ РјР°СЂС€СЂСѓС‚ РёР· РІС‹Р±СЂР°РЅРЅРѕР№ Р’Р°РјРё С‚РѕС‡РєРё; РґР»СЏ РєРѕСЂСЂРµРєС‚РЅРѕР№ СЂР°Р±РѕС‚С‹ РїСЂРёР»РѕР¶РµРЅРёСЏ РїРѕРїСЂРѕР±СѓР№С‚Рµ РІС‹Р±СЂР°С‚СЊ СЃРѕСЃРµРґРЅРёРµ РґРѕРјР°!");
                             break;                                                    
                     }
                 }
                 else{
-                    alert("Извините, но мы не можем построить безопасный маршрут из данной точки, рекомендуем Вам обратиться к родителям, чтобы те отвезли Вас в школу!");
+                    alert("РР·РІРёРЅРёС‚Рµ, РЅРѕ РјС‹ РЅРµ РјРѕР¶РµРј РїРѕСЃС‚СЂРѕРёС‚СЊ Р±РµР·РѕРїР°СЃРЅС‹Р№ РјР°СЂС€СЂСѓС‚ РёР· РґР°РЅРЅРѕР№ С‚РѕС‡РєРё, СЂРµРєРѕРјРµРЅРґСѓРµРј Р’Р°Рј РѕР±СЂР°С‚РёС‚СЊСЃСЏ Рє СЂРѕРґРёС‚РµР»СЏРј, С‡С‚РѕР±С‹ С‚Рµ РѕС‚РІРµР·Р»Рё Р’Р°СЃ РІ С€РєРѕР»Сѓ!");
                 }
             }
         }
