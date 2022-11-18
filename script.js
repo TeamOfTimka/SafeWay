@@ -225,7 +225,7 @@ function init() {
             viaIndexes: viaIndexes,
             wayPointStartIconFillColor: "#55cc88",
             routeActivePedestrianSegmentStrokeStyle: "solid",
-            routeActivePedestrianSegmentStrokeColor: "#99ffbb",
+            routeActivePedestrianSegmentStrokeColor: "#339955",
             wayPointFinishIconFillColor: "#5588cc",
         });
         myMap.geoObjects.add(multiRoute);
