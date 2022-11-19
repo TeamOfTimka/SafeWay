@@ -14,6 +14,7 @@ function init() {
         pointMaslozavod = [51.30716895, 37.86677088],
         pointPushkarskay = [51.30692014, 37.86675478],
         pointPrydchenko = [51.30683944, 37.86711956],
+        rayons = ["Жукова", "Ольминского", "Олимпийский", "Королёва", "Солнечный", "Макаренко", "Лог", "Восточный", "Степной", "Космос", "Дубрава-3", "Конева", "Маслозавод", "Пушкарская", "Прядченко"],
         point = [51.30826124, 37.87969247],
         Zhukova = [[0.4318739002138402, 34.95166989496448], [-0.9029141460242159, 85.52866790801349], [0.4373551301397357, 34.73629728068499], [-0.904375187345209, 85.56877287785977]],
         Olminskogo = [[0.19375971938632913, 43.97507148160086], [-0.8960893099652893, 85.25433881216819], [0.38247959491364525, 36.82311928258122], [-2.337307266556488, 139.81663076634055]],
@@ -40,19 +41,20 @@ function init() {
             searchControlProvider: 'yandex#search'
         });
     var myPlacemark = false;
-    var geolocation = ymaps.geolocation;
     myMap.events.add('click', function (e) {
         var coords = e.get('coords');
-
-        myMap.geoObjects.removeAll()
+        myMap.geoObjects.removeAll();
         myPlacemark = createPlacemark(coords);
         myMap.geoObjects.add(myPlacemark);
+
         myPlacemark.events.add('dragend', function () {
             getAddress(myPlacemark.geometry.getCoordinates());
         });
-        
+
         getAddress(coords);
+
     });
+
     function createPlacemark(coords) {
         return new ymaps.Placemark(coords, {
             iconCaption: 'поиск...'
@@ -75,149 +77,138 @@ function init() {
                     ].filter(Boolean).join(', '),
                     balloonContent: firstGeoObject.getAddressLine()
                 });
-        referencePoints = []
-        viaIndexes = []
-        rayon = ""
-        if ((Zhukova[0][0]*coords[1]+Zhukova[0][1] > coords[0]) && (Zhukova[1][0]*coords[1]+Zhukova[1][1] > coords[0]) && (Zhukova[2][0]*coords[1]+Zhukova[2][1] < coords[0]) && (Zhukova[3][0]*coords[1]+Zhukova[3][1] < coords[0])) {
-            rayon = "Жукова"
-        }
-        if ((Olminskogo[0][0]*coords[1]+Olminskogo[0][1] > coords[0]) && (Olminskogo[1][0]*coords[1]+Olminskogo[1][1] > coords[0]) && (Olminskogo[2][0]*coords[1]+Olminskogo[2][1] < coords[0]) && (Olminskogo[3][0]*coords[1]+Olminskogo[3][1] < coords[0])) {
-            rayon = "Ольминского"
-        }
-        if ((Olimpiyskiy[0][0]*coords[1]+Olimpiyskiy[0][1] > coords[0]) && (Olimpiyskiy[1][0]*coords[1]+Olimpiyskiy[1][1] > coords[0]) && (Olimpiyskiy[2][0]*coords[1]+Olimpiyskiy[2][1] < coords[0]) && (Olimpiyskiy[3][0]*coords[1]+Olimpiyskiy[3][1] < coords[0])) {
-            rayon = "Олимпийский"
-        }
-        if ((Koroleva[0][0]*coords[1]+Koroleva[0][1] > coords[0]) && (Koroleva[1][0]*coords[1]+Koroleva[1][1] > coords[0]) && (Koroleva[2][0]*coords[1]+Koroleva[2][1] < coords[0]) && (Koroleva[3][0]*coords[1]+Koroleva[3][1] < coords[0])) {
-            rayon = "Королёва"
-        }
-        if ((Solnechniy[0][0]*coords[1]+Solnechniy[0][1] > coords[0]) && (Solnechniy[1][0]*coords[1]+Solnechniy[1][1] > coords[0]) && (Solnechniy[2][0]*coords[1]+Solnechniy[2][1] < coords[0]) && (Solnechniy[3][0]*coords[1]+Solnechniy[3][1] < coords[0])) {
-            rayon = "Солнечный"
-        }
-        if ((Makarenko[0][0]*coords[1]+Makarenko[0][1] > coords[0]) && (Makarenko[1][0]*coords[1]+Makarenko[1][1] > coords[0]) && (Makarenko[2][0]*coords[1]+Makarenko[2][1] < coords[0]) && (Makarenko[3][0]*coords[1]+Makarenko[3][1] < coords[0])) {
-            rayon = "Макаренко"
-        }
-        if ((Log[0][0]*coords[1]+Log[0][1] > coords[0]) && (Log[1][0]*coords[1]+Log[1][1] > coords[0]) && (Log[2][0]*coords[1]+Log[2][1] < coords[0]) && (Log[3][0]*coords[1]+Log[3][1] < coords[0])) {
-            rayon = "Лог"
-        }
-        if ((Vostochny[0][0]*coords[1]+Vostochny[0][1] > coords[0]) && (Vostochny[1][0]*coords[1]+Vostochny[1][1] > coords[0]) && (Vostochny[2][0]*coords[1]+Vostochny[2][1] < coords[0]) && (Vostochny[3][0]*coords[1]+Vostochny[3][1] < coords[0])) {
-            rayon = "Восточный"
-        }
-        if ((Stepnoy[0][0]*coords[1]+Stepnoy[0][1] > coords[0]) && (Stepnoy[1][0]*coords[1]+Stepnoy[1][1] > coords[0]) && (Stepnoy[2][0]*coords[1]+Stepnoy[2][1] < coords[0]) && (Stepnoy[3][0]*coords[1]+Stepnoy[3][1] < coords[0])) {
-            rayon = "Степной"
-        }
-        if ((Kosmos[0][0]*coords[1]+Kosmos[0][1] > coords[0]) && (Kosmos[1][0]*coords[1]+Kosmos[1][1] > coords[0]) && (Kosmos[2][0]*coords[1]+Kosmos[2][1] < coords[0]) && (Kosmos[3][0]*coords[1]+Kosmos[3][1] < coords[0])) {
-            rayon = "Космос"
-        }
-        if ((Dubrava3[0][0]*coords[1]+Dubrava3[0][1] > coords[0]) && (Dubrava3[1][0]*coords[1]+Dubrava3[1][1] > coords[0]) && (Dubrava3[2][0]*coords[1]+Dubrava3[2][1] < coords[0]) && (Dubrava3[3][0]*coords[1]+Dubrava3[3][1] < coords[0])) {
-            rayon = "Дубрава-3"
-        }
-        if ((Koneva[0][0]*coords[1]+Koneva[0][1] > coords[0]) && (Koneva[1][0]*coords[1]+Koneva[1][1] > coords[0]) && (Koneva[2][0]*coords[1]+Koneva[2][1] < coords[0])) {
-            rayon = "Конева"
-        }
-        if ((Maslozavod[0][0]*coords[1]+Maslozavod[0][1] > coords[0]) && (Maslozavod[1][0]*coords[1]+Maslozavod[1][1] > coords[0]) && (Maslozavod[2][0]*coords[1]+Maslozavod[2][1] < coords[0]) && (Maslozavod[3][0]*coords[1]+Maslozavod[3][1] < coords[0])  && (Maslozavod[4][0]*coords[1]+Maslozavod[4][1] > coords[0])) {
-            rayon = "Маслозавод"
-        }
-        if ((Pushkarskay[0][0]*coords[1]+Pushkarskay[0][1] > coords[0]) && (Pushkarskay[1][0]*coords[1]+Pushkarskay[1][1] < coords[0]) && (Pushkarskay[2][0]*coords[1]+Pushkarskay[2][1] < coords[0]) && (Pushkarskay[3][0]*coords[1]+Pushkarskay[3][1] > coords[0])) {
-            rayon = "Пушкарская"
-        }
-        if ((Prydchenko[0][0]*coords[1]+Prydchenko[0][1] > coords[0]) && (Prydchenko[1][0]*coords[1]+Prydchenko[1][1] > coords[0]) && (Prydchenko[2][0]*coords[1]+Prydchenko[2][1] < coords[0]) && (Prydchenko[3][0]*coords[1]+Prydchenko[3][1] < coords[0]) && (Prydchenko[4][0]*coords[1]+Prydchenko[4][1] > coords[0])) {
-            rayon = "Прядченко"
-        }
-
-        rayons = ["Жукова", "Ольминского", "Олимпийский", "Королёва", "Солнечный", "Макаренко", "Лог", "Восточный", "Степной", "Космос", "Дубрава-3", "Конева", "Маслозавод", "Пушкарская", "Прядченко"]
-        if (rayons.includes(rayon)) {
-            switch (rayon) {
-                case 'Жукова':
-                    referencePoints = [coords, pointZhukova, point];
-                    viaIndexes = [1];
-                    break;
-                case "Ольминского":
-                    referencePoints = [coords, pointOlminskogo, point];
-                    viaIndexes = [1];
-                    break;                 
-                case "Олимпийский":
-                    referencePoints = [coords, pointOlimpiyskiy, pointZhukova, point];
-                    viaIndexes = [1, 2];
-                    break;
-                case "Королёва":
-                    referencePoints = [coords, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
-                    viaIndexes = [1, 2, 3];
-                    break;
-                case "Солнечный":
-                    referencePoints = [coords, pointSolnechniy, pointZhukova, point];
-                    viaIndexes = [1, 2];
-                    break;
-                case "Макаренко":
-                    referencePoints = [coords, pointMakarenko, pointZhukova, point];
-                    viaIndexes = [1, 2];
-                    break;
-                case "Лог":
-                    referencePoints = [coords, pointLog, pointSolnechniy, pointZhukova, point];
-                    viaIndexes = [1, 2, 3];
-                    break;
-                case "Восточный":
-                    referencePoints = [coords, pointVostochny, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
-                    viaIndexes = [1, 2, 3, 4];
-                    break;
-                case "Степной":
-                    referencePoints = [coords, pointStepnoy, pointVostochny, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
-                    viaIndexes = [1, 2, 3, 4, 5];
-                    break;
-                case "Космос":
-                    referencePoints = [coords, pointKosmos, pointOlimpiyskiy, pointZhukova, point];
-                    viaIndexes = [1, 2, 3];
-                    break;
-                case "Дубрава-3":
-                    referencePoints = [coords, pointDubrava3, pointVostochny, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
-                    viaIndexes = [1, 2, 3, 4, 5];
-                    break;                                   
-                case "Конева":
-                    referencePoints = [coords, point];
-                    viaIndexes = [];
-                    break;
-                case "Маслозавод":
-                    referencePoints = [coords, pointMaslozavod, pointOlminskogo, point];
-                    viaIndexes = [1, 2];
-                    break;   
-                case "Пушкарская":
-                    referencePoints = [coords, pointPushkarskay, pointMaslozavod, pointOlminskogo, point];
-                    viaIndexes = [1, 2, 3];
-                    break;   
-                case "Прядченко":
-                    referencePoints = [coords, pointPrydchenko, pointPushkarskay, pointMaslozavod, pointOlminskogo, point];
-                    viaIndexes = [1, 2, 3, 4];
-                    break;                                                         
+            referencePoints = []
+            viaIndexes = []
+            rayon = ""
+            if ((Zhukova[0][0]*coords[1]+Zhukova[0][1] > coords[0]) && (Zhukova[1][0]*coords[1]+Zhukova[1][1] > coords[0]) && (Zhukova[2][0]*coords[1]+Zhukova[2][1] < coords[0]) && (Zhukova[3][0]*coords[1]+Zhukova[3][1] < coords[0])) {
+                rayon = "Жукова"
             }
-            var multiRoute = new ymaps.multiRouter.MultiRoute({
-                referencePoints: referencePoints,
-                params: {
-                    routingMode: 'pedestrian'
+            if ((Olminskogo[0][0]*coords[1]+Olminskogo[0][1] > coords[0]) && (Olminskogo[1][0]*coords[1]+Olminskogo[1][1] > coords[0]) && (Olminskogo[2][0]*coords[1]+Olminskogo[2][1] < coords[0]) && (Olminskogo[3][0]*coords[1]+Olminskogo[3][1] < coords[0])) {
+                rayon = "Ольминского"
+            }
+            if ((Olimpiyskiy[0][0]*coords[1]+Olimpiyskiy[0][1] > coords[0]) && (Olimpiyskiy[1][0]*coords[1]+Olimpiyskiy[1][1] > coords[0]) && (Olimpiyskiy[2][0]*coords[1]+Olimpiyskiy[2][1] < coords[0]) && (Olimpiyskiy[3][0]*coords[1]+Olimpiyskiy[3][1] < coords[0])) {
+                rayon = "Олимпийский"
+            }
+            if ((Koroleva[0][0]*coords[1]+Koroleva[0][1] > coords[0]) && (Koroleva[1][0]*coords[1]+Koroleva[1][1] > coords[0]) && (Koroleva[2][0]*coords[1]+Koroleva[2][1] < coords[0]) && (Koroleva[3][0]*coords[1]+Koroleva[3][1] < coords[0])) {
+                rayon = "Королёва"
+            }
+            if ((Solnechniy[0][0]*coords[1]+Solnechniy[0][1] > coords[0]) && (Solnechniy[1][0]*coords[1]+Solnechniy[1][1] > coords[0]) && (Solnechniy[2][0]*coords[1]+Solnechniy[2][1] < coords[0]) && (Solnechniy[3][0]*coords[1]+Solnechniy[3][1] < coords[0])) {
+                rayon = "Солнечный"
+            }
+            if ((Makarenko[0][0]*coords[1]+Makarenko[0][1] > coords[0]) && (Makarenko[1][0]*coords[1]+Makarenko[1][1] > coords[0]) && (Makarenko[2][0]*coords[1]+Makarenko[2][1] < coords[0]) && (Makarenko[3][0]*coords[1]+Makarenko[3][1] < coords[0])) {
+                rayon = "Макаренко"
+            }
+            if ((Log[0][0]*coords[1]+Log[0][1] > coords[0]) && (Log[1][0]*coords[1]+Log[1][1] > coords[0]) && (Log[2][0]*coords[1]+Log[2][1] < coords[0]) && (Log[3][0]*coords[1]+Log[3][1] < coords[0])) {
+                rayon = "Лог"
+            }
+            if ((Vostochny[0][0]*coords[1]+Vostochny[0][1] > coords[0]) && (Vostochny[1][0]*coords[1]+Vostochny[1][1] > coords[0]) && (Vostochny[2][0]*coords[1]+Vostochny[2][1] < coords[0]) && (Vostochny[3][0]*coords[1]+Vostochny[3][1] < coords[0])) {
+                rayon = "Восточный"
+            }
+            if ((Stepnoy[0][0]*coords[1]+Stepnoy[0][1] > coords[0]) && (Stepnoy[1][0]*coords[1]+Stepnoy[1][1] > coords[0]) && (Stepnoy[2][0]*coords[1]+Stepnoy[2][1] < coords[0]) && (Stepnoy[3][0]*coords[1]+Stepnoy[3][1] < coords[0])) {
+                rayon = "Степной"
+            }
+            if ((Kosmos[0][0]*coords[1]+Kosmos[0][1] > coords[0]) && (Kosmos[1][0]*coords[1]+Kosmos[1][1] > coords[0]) && (Kosmos[2][0]*coords[1]+Kosmos[2][1] < coords[0]) && (Kosmos[3][0]*coords[1]+Kosmos[3][1] < coords[0])) {
+                rayon = "Космос"
+            }
+            if ((Dubrava3[0][0]*coords[1]+Dubrava3[0][1] > coords[0]) && (Dubrava3[1][0]*coords[1]+Dubrava3[1][1] > coords[0]) && (Dubrava3[2][0]*coords[1]+Dubrava3[2][1] < coords[0]) && (Dubrava3[3][0]*coords[1]+Dubrava3[3][1] < coords[0])) {
+                rayon = "Дубрава-3"
+            }
+            if ((Koneva[0][0]*coords[1]+Koneva[0][1] > coords[0]) && (Koneva[1][0]*coords[1]+Koneva[1][1] > coords[0]) && (Koneva[2][0]*coords[1]+Koneva[2][1] < coords[0])) {
+                rayon = "Конева"
+            }
+            if ((Maslozavod[0][0]*coords[1]+Maslozavod[0][1] > coords[0]) && (Maslozavod[1][0]*coords[1]+Maslozavod[1][1] > coords[0]) && (Maslozavod[2][0]*coords[1]+Maslozavod[2][1] < coords[0]) && (Maslozavod[3][0]*coords[1]+Maslozavod[3][1] < coords[0])  && (Maslozavod[4][0]*coords[1]+Maslozavod[4][1] > coords[0])) {
+                rayon = "Маслозавод"
+            }
+            if ((Pushkarskay[0][0]*coords[1]+Pushkarskay[0][1] > coords[0]) && (Pushkarskay[1][0]*coords[1]+Pushkarskay[1][1] < coords[0]) && (Pushkarskay[2][0]*coords[1]+Pushkarskay[2][1] < coords[0]) && (Pushkarskay[3][0]*coords[1]+Pushkarskay[3][1] > coords[0])) {
+                rayon = "Пушкарская"
+            }
+            if ((Prydchenko[0][0]*coords[1]+Prydchenko[0][1] > coords[0]) && (Prydchenko[1][0]*coords[1]+Prydchenko[1][1] > coords[0]) && (Prydchenko[2][0]*coords[1]+Prydchenko[2][1] < coords[0]) && (Prydchenko[3][0]*coords[1]+Prydchenko[3][1] < coords[0]) && (Prydchenko[4][0]*coords[1]+Prydchenko[4][1] > coords[0])) {
+                rayon = "Прядченко"
+            }
+
+            if (rayons.includes(rayon)) {
+                switch (rayon) {
+                    case 'Жукова':
+                        referencePoints = [coords, pointZhukova, point];
+                        viaIndexes = [1];
+                        break;
+                    case "Ольминского":
+                        referencePoints = [coords, pointOlminskogo, point];
+                        viaIndexes = [1];
+                        break;                 
+                    case "Олимпийский":
+                        referencePoints = [coords, pointOlimpiyskiy, pointZhukova, point];
+                        viaIndexes = [1, 2];
+                        break;
+                    case "Королёва":
+                        referencePoints = [coords, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
+                        viaIndexes = [1, 2, 3];
+                        break;
+                    case "Солнечный":
+                        referencePoints = [coords, pointSolnechniy, pointZhukova, point];
+                        viaIndexes = [1, 2];
+                        break;
+                    case "Макаренко":
+                        referencePoints = [coords, pointMakarenko, pointZhukova, point];
+                        viaIndexes = [1, 2];
+                        break;
+                    case "Лог":
+                        referencePoints = [coords, pointLog, pointSolnechniy, pointZhukova, point];
+                        viaIndexes = [1, 2, 3];
+                        break;
+                    case "Восточный":
+                        referencePoints = [coords, pointVostochny, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
+                        viaIndexes = [1, 2, 3, 4];
+                        break;
+                    case "Степной":
+                        referencePoints = [coords, pointStepnoy, pointVostochny, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
+                        viaIndexes = [1, 2, 3, 4, 5];
+                        break;
+                    case "Космос":
+                        referencePoints = [coords, pointKosmos, pointOlimpiyskiy, pointZhukova, point];
+                        viaIndexes = [1, 2, 3];
+                        break;
+                    case "Дубрава-3":
+                        referencePoints = [coords, pointDubrava3, pointVostochny, pointKoroleva, pointOlimpiyskiy, pointZhukova, point];
+                        viaIndexes = [1, 2, 3, 4, 5];
+                        break;                                   
+                    case "Конева":
+                        referencePoints = [coords, point];
+                        viaIndexes = [];
+                        break;
+                    case "Маслозавод":
+                        referencePoints = [coords, pointMaslozavod, pointOlminskogo, point];
+                        viaIndexes = [1, 2];
+                        break;   
+                    case "Пушкарская":
+                        referencePoints = [coords, pointPushkarskay, pointMaslozavod, pointOlminskogo, point];
+                        viaIndexes = [1, 2, 3];
+                        break;   
+                    case "Прядченко":
+                        referencePoints = [coords, pointPrydchenko, pointPushkarskay, pointMaslozavod, pointOlminskogo, point];
+                        viaIndexes = [1, 2, 3, 4];
+                        break;                                                         
                 }
-            }, {
-                boundsAutoApply: true,
-                viaIndexes: viaIndexes,
-                wayPointStartIconFillColor: "#55cc88",
-                routeActivePedestrianSegmentStrokeStyle: "solid",
-                routeActivePedestrianSegmentStrokeColor: "#339955",
-                wayPointFinishIconFillColor: "#5588cc",
-            });
-            myMap.geoObjects.add(multiRoute);
-            setInterval(f, 10000)
-        }
-        else {
-            alert("Извините, но мы не можем построить безопасный маршрут из данной точки, рекомендуем Вам обратиться к родителям, чтобы те отвезли Вас в школу!");
-        }
 
-    });    
-}
+                var multiRoute = new ymaps.multiRouter.MultiRoute({
+                    referencePoints: referencePoints,
+                    params: {
+                        routingMode: 'pedestrian'
+                    }
+                }, {
+                    boundsAutoApply: true,
+                    viaIndexes: viaIndexes,
+                    wayPointStartIconFillColor: "#55cc88",
+                    routeActivePedestrianSegmentStrokeStyle: "solid",
+                    routeActivePedestrianSegmentStrokeColor: "#339955",
+                    wayPointFinishIconFillColor: "#5588cc",
+                });
 
-function f() {
-    geolocation.get({
-        provider: 'browser',
-    }).then(function (result) {
-        result.geoObjects.options.set('preset', 'islands#circleDotIcon');
-        myMap.geoObjects.add(result.geoObjects);
-    })
-}
-
+                myMap.geoObjects.add(multiRoute);
+            }
+            else {
+                alert("Извините, но мы не можем построить безопасный маршрут из данной точки, рекомендуем Вам обратиться к родителям, чтобы те отвезли Вас в школу!");
+            }
+        });    
+    }
 }
