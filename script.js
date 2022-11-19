@@ -1,3 +1,4 @@
+ymaps.ready(init);
 function init() {
     var pointZhukova = [51.31093697, 37.88052742],
         pointOlminskogo = [51.31126982, 37.87902002],
@@ -38,8 +39,8 @@ function init() {
         }, {
             searchControlProvider: 'yandex#search'
         });
-    var myPlacemark = false
-
+    var myPlacemark = false;
+    var geolocation = ymaps.geolocation;
     myMap.events.add('click', function (e) {
         var coords = e.get('coords');
 
@@ -77,7 +78,6 @@ function init() {
         referencePoints = []
         viaIndexes = []
         rayon = ""
-        console.log(Prydchenko[0][0]*coords[1]+Prydchenko[0][1], Prydchenko[1][0]*coords[1]+Prydchenko[1][1], Prydchenko[2][0]*coords[1]+Prydchenko[2][1], Prydchenko[3][0]*coords[1]+Prydchenko[3][1], Prydchenko[4][0]*coords[1]+Prydchenko[4][1], coords[0])
         if ((Zhukova[0][0]*coords[1]+Zhukova[0][1] > coords[0]) && (Zhukova[1][0]*coords[1]+Zhukova[1][1] > coords[0]) && (Zhukova[2][0]*coords[1]+Zhukova[2][1] < coords[0]) && (Zhukova[3][0]*coords[1]+Zhukova[3][1] < coords[0])) {
             rayon = "Жукова"
         }
@@ -202,6 +202,7 @@ function init() {
                 wayPointFinishIconFillColor: "#5588cc",
             });
             myMap.geoObjects.add(multiRoute);
+            setInterval(f, 10000)
         }
         else {
             alert("Извините, но мы не можем построить безопасный маршрут из данной точки, рекомендуем Вам обратиться к родителям, чтобы те отвезли Вас в школу!");
@@ -209,5 +210,14 @@ function init() {
 
     });    
 }
+
+function f() {
+    geolocation.get({
+        provider: 'browser',
+    }).then(function (result) {
+        result.geoObjects.options.set('preset', 'islands#circleDotIcon');
+        myMap.geoObjects.add(result.geoObjects);
+    })
 }
-ymaps.ready(init);
+
+}
